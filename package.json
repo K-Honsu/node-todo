@@ -1,0 +1,18 @@
+{
+  "name": "node-todo",
+  "version": "1.0.0",
+  "description": "This is a repo built with express integrated with ejs to build a todo app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon main.js"
+  },
+  "author": "Oluwaferanmi Emmanuel Adeyemi",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "mongoose": "^7.6.0"
+  }
+}
