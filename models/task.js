@@ -8,7 +8,7 @@ const TaskSchema = new schema({
     },
     title : {type : String, required : true},
     description : {type : String, required: true},
-    pending : {type : String, enum : ["pending", "completed"], default: "pending"},
+    status : {type : String, enum : ["pending", "completed"], default: "pending"},
     created_at : {type: Date, default : new Date()},
 })
 
