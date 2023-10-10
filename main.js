@@ -1,12 +1,10 @@
 const express = require('express')
-const config = require("./config/mongoose")
 const userRouter = require("./users/user.routers")
 const authRouter = require("./auth/auth.routers")
 const taskRouter = require("./tasks/tasks.routers")
 
-const port = 3005
 const app = express()
-config.connect()
+
 
 app.use(express.json())
 app.use("/user", userRouter)
@@ -20,4 +18,4 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(port, () => console.log(`listening on port: ${port}`))
+module.exports = app

@@ -4,14 +4,16 @@
   "description": "This is a repo built with express integrated with ejs to build a todo app",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js"
+    "test": "jest",
+    "dev": "nodemon main.js",
+    "dev-1": "nodemon server.js"
   },
   "author": "Oluwaferanmi Emmanuel Adeyemi",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
