@@ -57,7 +57,7 @@ const updateUserInfo = async (req, res) => {
         if (!user) {
             return res.status(404).json({
                 status : "error",
-                data : `User with ${id} not found`
+                data : 'User not found'
             })
         }
         user.username = username
@@ -67,7 +67,7 @@ const updateUserInfo = async (req, res) => {
         await user.save()
         return res.status(200).json({
             status : "success",
-            message : "User Profile Update Successfully",
+            message : "User Profile Updated Successfully",
             user 
         })
     } catch (error) {
