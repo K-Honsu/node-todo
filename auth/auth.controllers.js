@@ -9,7 +9,7 @@ const Login = async (req, res) => {
             username : username
         })
         if(!user) {
-            return res.status(422).json({
+            return res.status(404).json({
                 status : "error",
                 data : "User not found"
             })
