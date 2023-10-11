@@ -4,7 +4,7 @@ const joi = require("joi")
 
 const validateUserId = async (req, res, next) => {
     try {
-        const { user_id } = req.body
+        const user_id = req.user._id
         const user = await UserModel.findById(user_id)
         if (!user) {
             return res.status(404).json({
@@ -23,15 +23,7 @@ const validateUserId = async (req, res, next) => {
 
 const validateTask = async (req, res, next) => {
     try {
-        const { user_id } = req.body;
-        if (!mongoose.isValidObjectId(user_id)){
-            return res.status(422).json({
-                status : "error",
-                data : "Invalid user_id format"
-            })
-        }
         const schema = await joi.object({
-            user_id : joi.string().required(),
             title : joi.string().required(),
             description : joi.string().required(),
         })

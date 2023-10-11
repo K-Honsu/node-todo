@@ -1,13 +1,13 @@
 const TaskModel = require("../models/task")
-const { BearerToken } = require("../middleware/global.middleware")
 
 const createTask = async (req, res) => {
     try {
-        const { user_id, title, description } = req.body
+        const { title, description } = req.body
+        const user = req.user
         const task = await TaskModel.create({
-            user_id,
             title,
-            description
+            description,
+            user : user._id
         })
         return res.status(201).json({
             status : "success",
