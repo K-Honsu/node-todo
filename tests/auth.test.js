@@ -43,8 +43,8 @@ describe("Authentication Test", () => {
     it("should successfully login in a user", async () => {
         await UserModel.create({
             first_name : "daniel",
-            last_name : "jerry",
-            username : "daniel_jerry",
+            last_name : "tobi",
+            username : "daniel_tobi",
             email : "dan@gmail.com", 
             gender : "male",
             password : "passwordispassword"
@@ -53,7 +53,7 @@ describe("Authentication Test", () => {
         .post("/auth/login")
         .set("content-type", "application/json")
         .send({
-            username : "daniel_jerry",
+            username : "daniel_tobi",
             password : "passwordispassword"
         })
         expect(response.status).toEqual(200)
@@ -66,7 +66,7 @@ describe("Authentication Test", () => {
         expect(response.body.user.email).toEqual('dan@gmail.com');
     })
 
-    it("should not successfully lohin in a user with wrong creditials", async () => {
+    test("should not successfully login in a user with wrong creditials", async () => {
         await UserModel.create({
             first_name : "daniel",
             last_name : "jerry",

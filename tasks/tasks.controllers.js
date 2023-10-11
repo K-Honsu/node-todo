@@ -23,8 +23,10 @@ const createTask = async (req, res) => {
 
 const getTask = async (req, res) => {
     try {
-        const user_id = req.user
-        const task = await TaskModel.find({user_id})
+        const user_id = req.user._id
+        console.log({user_id})
+        const task = await TaskModel.find({user:user_id})
+        console.log({task})
         if (!task) {
             return res.status(404).json({
                 status : "error",
@@ -46,16 +48,21 @@ const getTask = async (req, res) => {
 const updateTask = async (req, res) => {
     try {
         const id = req.params.id
+        const user_id = req.user._id
         const { title, description } = req.body
-        const task = await TaskModel.findById(id)
+        const task = await TaskModel.findOne({ _id: id, user: user_id })
         if (!task) {
             return res.status(404).json({
                 status : "error",
                 data : `Task not found`
             })
         }
-        task.title = title
-        task.description = description
+        if (title) {
+            task.title = title
+        }
+        if( description) {
+            task.description = description
+        }
         await task.save()
         return res.status(200).json({
             status : "success",
@@ -73,7 +80,8 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
     try {
         const id = req.params.id
-        const task = await TaskModel.findById(id)
+        const user_id = req.user._id
+        const task = await TaskModel.findOne({ _id: id, user: user_id })
         if (!task) {
             return res.status(404).json({
                 status : "error",
