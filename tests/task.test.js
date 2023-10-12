@@ -94,4 +94,15 @@ describe("Task Route", () => {
         })
     })
 
+    test("should suceesfully delete a task for authenticated user", async () => {
+        const response = await supertest(app)
+        .delete(`/task/delete/${id}`)
+        .set("authorization", `Bearer ${token}`)
+        .set("content-type", "application/json")
+        expect(response.status).toEqual(200)
+        expect(response.body).toMatchObject({
+            message : "Task deleted successfully",
+        })
+    })
+
 })
