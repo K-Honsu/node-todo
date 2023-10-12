@@ -1,8 +1,8 @@
-const app = require("../main")
+const app = require("../../main")
 const supertest = require("supertest")
 const { connect } = require("./database")
-const UserModel = require("../models/user")
-const TaskModel = require("../models/task")
+const UserModel = require("../../models/user")
+const TaskModel = require("../../models/task")
 
 describe("Task Route", () => {
     let connection

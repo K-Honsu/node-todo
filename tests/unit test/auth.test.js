@@ -1,7 +1,7 @@
-const app = require("../main")
+const app = require("../../main")
 const supertest = require("supertest")
 const { connect } = require("./database")
-const UserModel = require("../models/user")
+const UserModel = require("../../models/user")
 
 describe("Authentication Test", () => {
     let connection
