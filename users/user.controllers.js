@@ -1,4 +1,5 @@
 const UserModel = require("../models/user")
+const transporter = require("../mailer")
 
 const createUser = async (req, res) => {
     try {
@@ -19,6 +20,21 @@ const createUser = async (req, res) => {
             email,
             gender,
             password
+        })
+
+        const mailerOption = {
+            from : "donotreply@gmail.com",
+            to : email,
+            subject : "Welcome to Task Manager app",
+            text : "Thank you for creating an account with us. We are very glad to have you here!. We do hope you enjoy our service. Thank you."
+        }
+
+        transporter.sendMail(mailerOption, (error, info) => {
+            if (error) {
+                console.log("Error sending mail", error);
+            } else {
+                console.log("Email sent", info.response)
+            }
         })
         return res.status(201).json({
             status : "success",
