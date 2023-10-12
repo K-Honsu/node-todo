@@ -24,9 +24,7 @@ const createTask = async (req, res) => {
 const getTask = async (req, res) => {
     try {
         const user_id = req.user._id
-        console.log({user_id})
         const task = await TaskModel.find({user:user_id})
-        console.log({task})
         if (!task) {
             return res.status(404).json({
                 status : "error",
@@ -44,6 +42,8 @@ const getTask = async (req, res) => {
         })
     }
 }
+
+// const getOneTask
 
 const updateTask = async (req, res) => {
     try {

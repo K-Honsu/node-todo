@@ -2,6 +2,7 @@ const app = require("../main")
 const supertest = require("supertest")
 const { connect } = require("./database")
 const UserModel = require("../models/user")
+const TaskModel = require("../models/task")
 
 describe("Task Route", () => {
     let connection
@@ -28,6 +29,20 @@ describe("Task Route", () => {
             password : "passwordispassword"
         })
         token = response.body.token
+        const task = await TaskModel.create({
+            title : "chores",
+            description : "dont forget to ckean the house"
+        })
+        const res = await supertest(app)
+        .post("/task/create")
+        .set("authorization", `Bearer ${token}`)
+        .set("content-type", "application/json")
+        .send({
+            title : "chores",
+            description : "dont forget to ckean the house"
+        })
+        title = res.body.data.title
+        id = res.body.data._id
     })
 
     afterEach(async () => {
@@ -62,6 +77,20 @@ describe("Task Route", () => {
         expect(response.status).toEqual(200)
         expect(response.body).toMatchObject({
             data : expect.any(Array)
+        })
+    })
+
+    test("should successfully update a task for authenticated user", async () => {
+        const response = await supertest(app)
+        .patch(`/task/update/${id}`)
+        .set("authorization", `Bearer ${token}`)
+        .set("content-type", "application/json")
+        .send({
+            title : "book",
+        })
+        expect(response.status).toEqual(200)
+        expect(response.body).toMatchObject({
+            task : expect.any(Object)
         })
     })
 
