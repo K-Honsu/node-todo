@@ -1,6 +1,6 @@
 const app = require("../../main")
 const supertest = require("supertest")
-const { connect } = require("./database")
+const { connect } = require("../database")
 const UserModel = require("../../models/user")
 const TaskModel = require("../../models/task")
 
