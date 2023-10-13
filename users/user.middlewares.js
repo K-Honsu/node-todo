@@ -9,7 +9,7 @@ const validateUser = async (req, res, next) => {
             email : joi.string().email().required(),
             username : joi.string().required(),
             gender : joi.string().valid("male", "female"),
-            password : joi.string().required()
+            password : joi.string().min(7).required()
         })
         await schema.validateAsync(req.body, {abortEarly : true})
         next()
@@ -40,7 +40,27 @@ const validateId = async (req, res, next) => {
     }
 }
 
+const validateUsername = async (req, res, next) => {
+    try {
+        const {username} = req.body
+        const foundUsername = await UserModel.findOne({username : username})
+        if (foundUsername) {
+            return res.status(422).json({
+                status : "error",
+                message : "Sorry, username already in use by another user."
+            })
+        }
+        next()
+    } catch (error) {
+        return res.status(500).json({
+            status : "error",
+            message : error.message
+        })
+    }
+}
+
 module.exports = {
     validateUser,
-    validateId
+    validateId,
+    validateUsername
 }

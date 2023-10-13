@@ -51,8 +51,8 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const id = req.params.id
-        const user = await UserModel.findById(id)
+        const user_id = req.user._id
+        const user = await UserModel.findById({_id : user_id})
         return res.status(200).json({
             status : "success",
             data : user
@@ -67,19 +67,27 @@ const getUser = async (req, res) => {
 
 const updateUserInfo = async (req, res) => {
     try {
-        const id = req.params.id
+        const user_id = req.user._id
         const {first_name, last_name, gender, username} = req.body
-        const user = await UserModel.findById(id)
+        const user = await UserModel.findById({_id : user_id})
         if (!user) {
             return res.status(404).json({
                 status : "error",
                 data : 'User not found'
             })
         }
-        user.username = username
-        user.gender = gender
-        user.last_name = last_name
-        user.first_name = first_name
+        if (username) {
+            user.username = username
+        }
+        if (gender) {
+            user.gender = gender
+        }
+        if (last_name) {
+            user.last_name = last_name
+        }
+        if (first_name) {
+            user.first_name = first_name
+        }
         await user.save()
         return res.status(200).json({
             status : "success",
@@ -97,5 +105,5 @@ const updateUserInfo = async (req, res) => {
 module.exports = {
     createUser,
     updateUserInfo,
-    getUser
+    getUser,
 }
