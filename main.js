@@ -18,4 +18,14 @@ app.get('*', (req, res) => {
     })
 })
 
+
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).json({
+        data: null,
+        error: 'Server Error'
+    })
+})
+
+
 module.exports = app
