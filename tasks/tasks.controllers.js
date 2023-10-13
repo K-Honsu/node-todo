@@ -43,7 +43,6 @@ const getTask = async (req, res) => {
     }
 }
 
-// const getOneTask
 
 const updateTask = async (req, res) => {
     try {

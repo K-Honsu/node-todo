@@ -12,6 +12,13 @@ const validateUser = async (req, res, next) => {
             password : joi.string().min(7).required()
         })
         await schema.validateAsync(req.body, {abortEarly : true})
+        const {username, password } = req.body
+        if (password === username ) {
+            return res.status(406).json({
+                status : "error",
+                messagee : "Password cannot be same as username"
+            })
+        }
         next()
     } catch (error) {
         return res.status(422).json({
