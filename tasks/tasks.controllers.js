@@ -100,9 +100,33 @@ const deleteTask = async (req, res) => {
     }
 }
 
+const getOneTask = async (req, res) => {
+    try {
+        const id  = req.params.id
+        const user_id = req.user._id
+        const existingTask = await TaskModel.findOne({_id : id, user: user_id})
+        if (!existingTask) {
+            return res.status(404).json({
+                status : "error",
+                message : "Task not found"
+            })
+        }
+        return res.status(200).json({
+            status : "success",
+            existingTask
+        })
+    } catch (error) {
+        return res.status(422).json({
+            status : "error",
+            message : error.message
+        })
+    }
+}
+
 module.exports = {
     createTask,
     getTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getOneTask
 }
