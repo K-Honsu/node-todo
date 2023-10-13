@@ -16,10 +16,11 @@ const validateLogin = async (req, res, next) => {
     }
 }
 
-const validateForgotPassword = async (req, res, next) => {
+const validatePassword = async (req, res, next) => {
     try {
         const schema = joi.object({
-            password : joi.string().min(7).required()
+            newpassword : joi.string().min(7).required(),
+            confirmpassword : joi.string().min(7).required()
         })
         await schema.validateAsync(req.body, {abortEarly : true})
         next()
@@ -33,5 +34,5 @@ const validateForgotPassword = async (req, res, next) => {
 
 module.exports = {
     validateLogin,
-    validateForgotPassword
+    validatePassword
 }

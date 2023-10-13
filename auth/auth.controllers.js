@@ -38,7 +38,6 @@ const Login = async (req, res) => {
 }
 
 
-
 const ForgotPassword = async (req, res) => {
     try {
         const { email } = req.body
@@ -87,7 +86,7 @@ const ResetPassword = async (req, res) => {
                 message : "User not found"
             })
         }
-        if(newpassword != confirmpassword) {
+        if( newpassword != confirmpassword ) {
             return res.status(406).json({
                 status : "error",
                 message : "Password do no match."
