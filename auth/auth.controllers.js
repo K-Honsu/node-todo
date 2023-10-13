@@ -1,10 +1,12 @@
 const crypto = require("crypto")
+const logger = require("../logger/index")
 const UserModel = require("../models/user")
 const jwt = require("jsonwebtoken")
 const transporter = require("../mailer")
 require("dotenv").config()
 
 const Login = async (req, res) => {
+    logger.info("[Login In User] => login process started")
     try {
         const { username, password } = req.body
         const user = await UserModel.findOne({
@@ -24,6 +26,7 @@ const Login = async (req, res) => {
             })
         }
         const token = jwt.sign({email : user.email, _id : user._id}, process.env.JWT_SECRET, {expiresIn : "1hr"})
+        logger.info("[Login In User] => login process done")
         return res.status(200).json({
             status : "success",
             user,
