@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
             from : "donotreply@gmail.com",
             to : email,
             subject : "Welcome to Task Manager app",
-            text : "Thank you for creating an account with us. We are very glad to have you here!. We do hope you enjoy our service. Thank you."
+            text : `Dear ${user.username}\nThank you for creating an account with us. \n We are very glad to have you here!. We do hope you enjoy our service. \n Thank you.`
         }
 
         transporter.sendMail(mailerOption, (error, info) => {
@@ -102,8 +102,48 @@ const updateUserInfo = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    try {
+        const user_id = req.user._id
+        const user = await UserModel.findOne({_id : user_id})
+        if (!user) {
+            return res.status(404).json({
+                status : "error",
+                message : "User not found"
+            })
+        }
+        const mailerOption = {
+            from : "donotreply@gmail.com",
+            to : user.email,
+            subject : "Going so soon 🥹🥹",
+            text : `Dear ${user.username}\n We are sad to see you go. 
+            \n We hope you did enjoy our sevices. If not, we kindly ask you send us a feedback on our official twitter handle to see how we can get you back on board.
+            \n Thank you.`
+        }
+
+        transporter.sendMail(mailerOption, (error, info) => {
+            if (error) {
+                console.log("Error sending mail", error);
+            } else {
+                console.log("Email sent", info.response)
+            }
+        })
+        await user.deleteOne()
+        return res.status(200).json({
+            status : "success",
+            message : "Profile deleted successfully"
+        })
+    } catch (error) {
+        return res.status(422).json({
+            status : "error",
+            message : error.message
+        })
+    }
+}
+
 module.exports = {
     createUser,
     updateUserInfo,
     getUser,
+    deleteUser
 }

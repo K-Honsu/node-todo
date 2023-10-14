@@ -3,7 +3,7 @@ const { connect } = require("../database");
 const UserModel = require("../../models/user");
 const app = require("../../main");
 
-describe("Task API Integration Test", function () {
+describe("Task API Integration Test", () => {
   let connection;
   let token;
 
