@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <title>To-Do App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: change-background 60s linear infinite;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            animation: fade-in 2s ease-in-out forwards;
+        }
+
+        .letter-t, .letter-o-top, .letter-d, .letter-o-bottom {
+            font-size: 50px;
+            font-weight: bold;
+            transform: scale(0);
+            animation: appear 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .letter-t {
+            animation-delay: 0s;
+            animation-name: move-left;
+        }
+
+        .letter-o-top {
+            animation-delay: 0.5s;
+            animation-name: move-top;
+        }
+
+        .letter-d {
+            animation-delay: 1s;
+            animation-name: move-right;
+        }
+
+        .letter-o-bottom {
+            animation-delay: 1.5s;
+            animation-name: move-bottom;
+        }
+
+        .todo-app {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            text-align: center;
+            animation: fade-in 2s ease-in-out 2s forwards;
+        }
+
+        @keyframes appear {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes move-left {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+                display: block;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes move-right {
+            0% {
+                transform: translateX(100px);
+                opacity: 0;
+                display: block;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes move-top {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+                display: block;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes move-bottom {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+                display: block;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .todo-header {
+            background-color: #3273dc;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .todo-item-text {
+            flex-grow: 1;
+        }
+
+        .todo-item-delete {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .todo-item-delete:hover {
+            background-color: #c0392b;
+        }
+
+        .todo-input {
+            border: none;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <div class="letter-t">T</div>
+        <div class="letter-o-top">O</div>
+        <div class="letter-d">D</div>
+        <div class="letter-o-bottom">O</div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href = "index"
+        }, 4000);
+    </script>
+    
+</body>
+</html>
