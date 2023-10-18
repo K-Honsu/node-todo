@@ -1,15 +1,22 @@
 const TaskModel = require("../models/task")
 
+// const updateTask = async (task, user_id) => {
+//     try {
+//         const taskbody = task
+//         const newTask = new TaskModel()
+//         newTask.status = 
+//     } catch (error) {
+        
+//     }
+// }
+
 const createTask = async (task, user_id) => {
     try {
         const taskbody = task
-        console.log({taskbody});
         const newTask = new TaskModel()
-        console.log({newTask});
         newTask.title = taskbody.title
         newTask.description = taskbody.description
-        console.log(newTask.title)
-        console.log(taskbody.title)
+        newTask.user = user_id
         const save = await newTask.save()
         return {
             status : "success",
@@ -47,8 +54,42 @@ const getTask = async () => {
     }
 };
 
+const updateTaskStatus = async (taskId, user_id) => {
+    try {
+        const updatedTask = await TaskModel.findByIdAndUpdate(
+            {_id : taskId},
+            { status: 'completed' },
+        );
+        console.log({updatedTask})
+
+        if (!updatedTask) {
+            return {
+                status: 'error',
+                code: 404,
+                data: 'Task not found',
+            };
+        }
+
+        return {
+            status: 'success',
+            code: 200,
+            message: 'Task status updated to completed',
+            data: updatedTask,
+        };
+    } catch (error) {
+        console.error(error)
+        return {
+            status: 'error',
+            code: 500,
+            data: error.message,
+        };
+    }
+};
+
+
 
 module.exports = {
     getTask,
-    createTask
+    createTask,
+    updateTaskStatus
 }

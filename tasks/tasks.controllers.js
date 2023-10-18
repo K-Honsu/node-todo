@@ -48,7 +48,7 @@ const updateTask = async (req, res) => {
     try {
         const id = req.params.id
         const user_id = req.user._id
-        const { title, description } = req.body
+        const { title, description, status } = req.body
         const task = await TaskModel.findOne({ _id: id, user: user_id })
         if (!task) {
             return res.status(404).json({
@@ -61,6 +61,9 @@ const updateTask = async (req, res) => {
         }
         if( description) {
             task.description = description
+        }
+        if (status) {
+            task.status = status
         }
         await task.save()
         return res.status(200).json({

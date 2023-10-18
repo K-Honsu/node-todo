@@ -39,7 +39,7 @@
     </header>
     <div style="padding:20px;margin-top:30px;height:1500px;">
         <h1>TODO'S</h1>
-        <button class="form-button"><a href="/views/completedTask">View completed Todo's</a></button>
+        <button class="form-button"><a href="/views/home">View pending Todo's</a></button>
         <table>
             <tr>
                 <th>Title</th>
@@ -49,7 +49,7 @@
             </tr>
             <% if (tasks.length > 0) { %>
                   <% tasks.forEach(function(task) { %>
-                    <% if (task.status === "pending") { %>
+                    <% if (task.status === "completed") { %>
                     <tr>
                         <td><%= task.title %></td>
                         <td><%= task.description %></td>
@@ -62,7 +62,7 @@
                     <% } %>
                   <% }); %>
               <% } else { %>
-                <h1>No todo created yet.</h1>
+                <h1>No completed todo yet.</h1>
               <% } %>
         </table>
         <div style="margin-top: 20px;">
