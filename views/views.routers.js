@@ -82,7 +82,6 @@ router.put("/task/:taskId", async (req, res) => {
     const user_id = res.locals.user._id;
     const taskId = req.params.taskId;
     const response = await TaskServices.updateTaskStatus(taskId, user_id);
-    console.log({response})
 
     if (response.code === 200) {
         res.redirect("/views/home");
@@ -122,19 +121,6 @@ router.get("/completedTask", async (req, res) => {
     const response = await TaskServices.getTask()
     return res.render("completedTask",  { user: res.locals.user, tasks: response.data })
 })
-
-// router.patch("/task/:taskId", async (req, res) => {
-//     try {
-//     const user_id = res.locals.user._id;
-//     console.log(user_id)
-//     const taskId = req.params.taskId;
-//     console.log(taskId)
-//     const response = await TaskServices.updateTaskStatus(taskId, user_id);
-//     console.log({ response })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
 
 
 
