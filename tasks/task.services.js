@@ -60,8 +60,6 @@ const updateTaskStatus = async (taskId, user_id) => {
             {_id : taskId},
             { status: 'completed' },
         );
-        console.log({updatedTask})
-
         if (!updatedTask) {
             return {
                 status: 'error',

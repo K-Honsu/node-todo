@@ -3,17 +3,25 @@ const userServices = require("../users/user.services")
 const TaskServices = require("../tasks/task.services")
 const cookieParser = require("cookie-parser")
 const methodOverride = require('method-override')
-
 const jwt = require("jsonwebtoken")
+const authomiddleware = require("../auth-service/auth")
+const { requireAuth } = require("express-openid-connect")
 require("dotenv").config()
 
 const router = express.Router()
+
+router.use(authomiddleware)
+
+router.post("/callback", (req, res) => {
+    console.log(req.oidc.user)
+    return res.render("home")
+})
 
 router.use(cookieParser())
 router.use(methodOverride("_method"))
 
 
-router.get("/start", (req, res) => {
+router.get("/", (req, res) => {
     res.render("partials/welcome")
 })
 
@@ -59,7 +67,6 @@ router.put("/task/:taskId", async (req, res) => {
     const user_id = res.locals.user._id;
     const taskId = req.params.taskId;
     const response = await TaskServices.updateTaskStatus(taskId, user_id);
-    console.log({response})
 
     if (response.code === 200) {
         res.redirect("/views/home");
@@ -69,10 +76,20 @@ router.put("/task/:taskId", async (req, res) => {
 });
 
 
+// router.get("/home", async (req, res) => {
+//     const response = await TaskServices.getTask()
+//     return res.render("home", { user: res.locals.user, tasks: response.data })
+// })
 router.get("/home", async (req, res) => {
-    const response = await TaskServices.getTask()
-    return res.render("home", { user: res.locals.user, tasks: response.data })
-})
+    if (!res.locals.user) {
+        // If the user is not authenticated, redirect to the login page
+        return res.redirect("index");
+    }
+
+    const response = await TaskServices.getTask();
+    return res.render("home", { user: res.locals.user, tasks: response.data });
+});
+
 
 router.get("/task", (req, res) => {
     res.render("task", { user: res.locals.user })
@@ -92,20 +109,6 @@ router.get("/completedTask", async (req, res) => {
     const response = await TaskServices.getTask()
     return res.render("completedTask",  { user: res.locals.user, tasks: response.data })
 })
-
-// router.patch("/task/:taskId", async (req, res) => {
-//     try {
-//     const user_id = res.locals.user._id;
-//     console.log(user_id)
-//     const taskId = req.params.taskId;
-//     console.log(taskId)
-//     const response = await TaskServices.updateTaskStatus(taskId, user_id);
-//     console.log({ response })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
-
 
 
 module.exports = router
