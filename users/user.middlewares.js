@@ -4,11 +4,8 @@ const UserModel = require("../models/user")
 const validateUser = async (req, res, next) => {
     try {
         const schema = joi.object({
-            first_name : joi.string().required(),
-            last_name : joi.string().required(),
             email : joi.string().email().required(),
             username : joi.string().required(),
-            gender : joi.string().valid("male", "female"),
             password : joi.string().min(7).required()
         })
         await schema.validateAsync(req.body, {abortEarly : true})

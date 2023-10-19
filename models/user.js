@@ -3,11 +3,8 @@ const schema = mongoose.Schema
 const bcrypt = require("bcrypt")
 
 const UserSchema = new schema({
-    first_name : {type: String, null: false},
-    last_name : {type : String, null: false},
-    username : {type: String, null: false},
-    email : {type: String, null: false},
-    gender : {type: String, enum:["male", "female"]},
+    username : {type: String, null: false, required : true},
+    email : {type: String, null: false, required : true},
     password : {type: String, required: true},
     is_created : {type: Date, default: new Date()}
 })

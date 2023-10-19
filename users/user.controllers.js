@@ -3,7 +3,7 @@ const transporter = require("../mailer")
 
 const createUser = async (req, res) => {
     try {
-        const {first_name, last_name, email, username, gender, password} = req.body
+        const { email, username, password} = req.body
         const existingUser = await UserModel.findOne({
             email : email
         })
@@ -14,11 +14,8 @@ const createUser = async (req, res) => {
             })
         }
         const user = await UserModel.create({
-            first_name,
-            last_name,
             username,
             email,
-            gender,
             password
         })
 
@@ -68,7 +65,7 @@ const getUser = async (req, res) => {
 const updateUserInfo = async (req, res) => {
     try {
         const user_id = req.user._id
-        const {first_name, last_name, gender, username} = req.body
+        const { username} = req.body
         const user = await UserModel.findById({_id : user_id})
         if (!user) {
             return res.status(404).json({
@@ -78,15 +75,6 @@ const updateUserInfo = async (req, res) => {
         }
         if (username) {
             user.username = username
-        }
-        if (gender) {
-            user.gender = gender
-        }
-        if (last_name) {
-            user.last_name = last_name
-        }
-        if (first_name) {
-            user.first_name = first_name
         }
         await user.save()
         return res.status(200).json({

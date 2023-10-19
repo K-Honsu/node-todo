@@ -48,21 +48,23 @@
         <%- include('./partials/header'); %>
     </header>
     <div style="padding:20px;margin-top:30px;height:1500px;">
-        <h2>Login</h2>
         <div class="container">
             <% if (message) { %>
                 <div class="success-message">
                     <p><%= message %></p>
                 </div>
             <% } %>
-            <form class="styled-form" action="/views/login" method="post">
+            <form class="styled-form" action="/views/signup" method="post">
+                <label for="username" class="form-label">Email:</label>
+                <input type="email" name="email" id="email" class="form-input">
+                
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" name="username" id="username" class="form-input">
-                
+
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" name="password" id="password" class="form-input">
                 
-                <input type="submit" value="Login" class="form-button">
+                <input type="submit" value="SignUp" class="form-button">
             </form>
         </div>
     </div>
