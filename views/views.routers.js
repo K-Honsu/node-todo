@@ -69,10 +69,17 @@ router.put("/task/:taskId", async (req, res) => {
 });
 
 
+// router.get("/home", async (req, res) => {
+//     const response = await TaskServices.getTask()
+//     return res.render("home", { user: res.locals.user, tasks: response.data })
+// })
 router.get("/home", async (req, res) => {
-    const response = await TaskServices.getTask()
-    return res.render("home", { user: res.locals.user, tasks: response.data })
-})
+    const response = await TaskServices.getTask();
+    const tasks = Array.isArray(response.data) ? response.data : [];
+
+    return res.render("home", { user: res.locals.user, tasks });
+});
+
 
 router.get("/task", (req, res) => {
     res.render("task", { user: res.locals.user })
