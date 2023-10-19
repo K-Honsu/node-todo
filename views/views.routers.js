@@ -30,9 +30,9 @@ router.post("/login", async (req, res) => {
         res.cookie("jwt", response.data.token, { maxAge: 360000 })
         res.redirect("home");
     } else if (response.code === 422) {
-        res.render("index", {message : response.data, user : res.locals.user || null})
+        res.render("index", {message : response.data, user : null})
     } else {
-        res.render("index", {message : response.data, user : res.locals.user || null})
+        res.render("index", {message : response.data, user : res.locals.user})
     }
 });
 
@@ -51,9 +51,9 @@ router.post("/signup", async (req, res) => {
         res.render("signup", { message: errorMessage || null, user: res.locals.user || null,});
     } else if (response.code === 201) {
         const successMessage = "Registration successful.\n Please check your email for confirmation and head over to the login page to log in and use our application.";
-        res.render("signup", { message: successMessage || null, user: res.locals.user || null,});
+        res.render("signup", { message: successMessage || null, user: res.locals.user});
     } else if (response.code === 422) {
-        res.render("signup", { message: response.data || null, user: res.locals.user || null,});
+        res.render("signup", { message: response.data || null, user: null,});
     }
 })
 

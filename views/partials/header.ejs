@@ -38,17 +38,34 @@
 </head>
 <body>
     
-    <ul>
+    <!-- <ul>
         <li><a href="">TODO SPACE</a></li>
         <li><a href="">About</a></li>
         <li><a class="" href="/views/signup">Signup</a></li>
         <li><a class="" href="/views/index">Login</a></li>
-        <% if (user) { %>
+        <% if (user !== null) { %>
             <li><a class="active" href="/views/home">Home</a></li>
             <li><a class="" href="/views/task">Create Task</a></li>
             <li><a href="/views/logout">Logout</a></li>
             <li><a href="">Welcome <%= user.email %></a></li>
           <% } %>
-      </ul>
+      </ul> -->
+      <ul>
+        <li><a href="">TODO SPACE</a></li>
+        <li><a href="">About</a></li>
+        <% if (user === null) { %>
+            <li><a class="" href="/views/signup">Signup</a></li>
+            <li><a class="" href="/views/index">Login</a></li>
+        <% } %>
+        <% if (user !== null) { %>
+            <li><a class="active" href="/views/home">Home</a></li>
+            <li><a class="" href="/views/task">Create Task</a></li>
+            <li><a href="/views/logout">Logout</a></li>
+            <% if (user.email) { %>
+                <li><a href="">Welcome <%= user.email %></a></li>
+            <% } %>
+        <% } %>
+    </ul>
+    
 </body>
 </html>
