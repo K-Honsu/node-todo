@@ -111,7 +111,7 @@ const ForgotPassword = async ({email}) => {
             }
         }
         const token = crypto.randomBytes(20).toString('hex');
-        const resetLink = `http://localhost:3005/views/resetPassword/${user._id}/${token}`
+        const resetLink = `https://node-todo-5e50.onrender.com/views/resetPassword/${user._id}/${token}`
         const mailerOption = {
             from : "donotreply@gmail.com",
             to : email,
