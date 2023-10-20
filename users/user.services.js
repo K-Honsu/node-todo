@@ -49,10 +49,11 @@ const createUser = async ({email, username, password}) => {
             email : email
         })
         if(existingUser){
-            return res.status(422).json({
+            return {
+                code : 422,
                 status : "error",
-                message : "User already exist"
-            })
+                data : "User already exist"
+            }
         }
         if (password === username ) {
             return {
