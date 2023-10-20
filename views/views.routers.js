@@ -36,9 +36,54 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/resetPassword/:user_id/:token", async (req, res) => {
+    const user_id = req.params.user_id;
+    const token = req.params.token;
+    res.render("resetPassword", { user_id, token, user: null, message: null });
+});
+
+router.post("/resetPassword/:user_id/:token", async (req, res) => {
+    console.log(req.body)
+    const user_id = req.params.user_id;
+    const token = req.params.token;
+    const newpassword = req.body.newpassword;
+    const confirmpassword = req.body.confirmpassword;
+
+    const response = await userServices.ResetPassword({ user_id, newpassword, confirmpassword });
+
+    if (response.code === 404) {
+        res.render("resetPassword", { message: response.data, user_id, token, user: null });
+    } else if (response.code === 406) {
+        res.render("resetPassword", { message: response.data, user_id, token, user: null });
+    } else if (response.code === 200) {
+        res.render("resetPassword", { message: response.data, user_id, token, user: null });
+    } else if (response.code === 422) {
+        res.render("resetPassword", { message: response.data, user_id, token, user: null });
+    }
+});
+
+
+router.get("/forgotPassword", (req, res) => {
+    res.render("forgotPassword",  { user: null, message : null })
+})
+
+router.post("/forgotPassword", async (req, res) => {
+    const response = await userServices.ForgotPassword({
+        email : req.body.email
+    })
+    if (response.code === 404 ) {
+        res.render("forgotPassword", {message : response.data, user: null})
+    } else if (response.code === 422 ) {
+        res.render("forgotPassword", {message : response.data, user: null})
+    } else if (response.code === 200 ) {
+        res.render("forgotPassword", {message : response.data, user: null})
+    }
+})
+
 router.get("/signup", (req, res) => {
     res.render("signup", { user: res.locals.user || null, message : null })
 })
+
 
 router.post("/signup", async (req, res) => {
     const response = await userServices.createUser({
