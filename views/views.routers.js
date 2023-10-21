@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
     } else if (response.code === 422) {
         res.render("index", {message : response.data, user : null})
     } else {
-        res.render("index", {message : response.data, user : res.locals.user})
+        res.render("index", {message : response.data, user : null})
     }
 });
 
@@ -43,7 +43,6 @@ router.get("/resetPassword/:user_id/:token", async (req, res) => {
 });
 
 router.post("/resetPassword/:user_id/:token", async (req, res) => {
-    console.log(req.body)
     const user_id = req.params.user_id;
     const token = req.params.token;
     const newpassword = req.body.newpassword;
