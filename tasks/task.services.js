@@ -1,15 +1,5 @@
 const TaskModel = require("../models/task")
 
-// const updateTask = async (task, user_id) => {
-//     try {
-//         const taskbody = task
-//         const newTask = new TaskModel()
-//         newTask.status = 
-//     } catch (error) {
-        
-//     }
-// }
-
 const createTask = async (task, user_id) => {
     try {
         const taskbody = task
